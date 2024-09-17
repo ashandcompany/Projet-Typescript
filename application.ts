@@ -58,26 +58,10 @@ class TroisPoints {
         this.point3 = c;
     }
 
-    public getPoint1(): Point {
-        return this.point1;
-    }
-
-    public getPoint2(): Point {
-        return this.point2;
-    }
-
-    public getPoint3(): Point {
-        return this.point3;
-    }
-
-    private distance(p1: Point, p2: Point): number {
-        return Math.sqrt((p2.abs - p1.abs) ** 2 + (p2.ord - p1.ord) ** 2);
-    }
-
     public estEquilateral(): boolean {
-        const d1 = this.distance(this.point1, this.point2);
-        const d2 = this.distance(this.point2, this.point3);
-        const d3 = this.distance(this.point3, this.point1);
+        const d1 = this.point1.calculerDistance(this.point2);
+        const d2 = this.point2.calculerDistance(this.point3);
+        const d3 = this.point3.calculerDistance(this.point1);
 
         const tolerance = 1e-10;
         return Math.abs(d1 - d2) < tolerance && Math.abs(d2 - d3) < tolerance;
