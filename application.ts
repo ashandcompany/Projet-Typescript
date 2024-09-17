@@ -37,6 +37,61 @@ let a = new Point(2,3);
 a.sePresenter();
 
 let b = new Point(5, 7);
+b.sePresenter();
+
+let c = new Point(1, 6);
+c.sePresenter();
+
 console.log(`Distance entre les deux points: ${a.calculerDistance(b)}`);
 
 console.log(`Coordonnées du milieu : (${a.calculerMilieu(b).abs},${a.calculerMilieu(b).ord})`);
+
+class TroisPoints {
+
+    private point1 : Point;
+    private point2 : Point;
+    private point3 : Point;
+
+    constructor( a : Point, b : Point, c : Point){
+        this.point1 = a;
+        this.point2 = b;
+        this.point3 = c;
+    }
+
+    public getPoint1(): Point {
+        return this.point1;
+    }
+
+    public getPoint2(): Point {
+        return this.point2;
+    }
+
+    public getPoint3(): Point {
+        return this.point3;
+    }
+
+    private distance(p1: Point, p2: Point): number {
+        return Math.sqrt((p2.abs - p1.abs) ** 2 + (p2.ord - p1.ord) ** 2);
+    }
+
+    public estEquilateral(): boolean {
+        const d1 = this.distance(this.point1, this.point2);
+        const d2 = this.distance(this.point2, this.point3);
+        const d3 = this.distance(this.point3, this.point1);
+
+        const tolerance = 1e-10;
+        return Math.abs(d1 - d2) < tolerance && Math.abs(d2 - d3) < tolerance;
+    }
+}
+
+const triangleNonEquilateral = new TroisPoints(a, b, c);
+
+console.log(triangleNonEquilateral.estEquilateral());
+
+let p1 = new Point(0,0);
+let p2 = new Point(1,0);
+let p3 = new Point(0.5,Math.sqrt(3) / 2);
+
+const triangle = new TroisPoints(p1, p2, p3);
+
+console.log(triangle.estEquilateral());
